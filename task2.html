@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task2:Email validate</title>
+</head>
+<body>
+    
+<label for="email"><strong>Email:</strong></label> <br> <br>
+<input type="email" name="email" id="email"> <br>
+<p id="msg" style="color:red;"></p> <br>
+<button id ="btn"><strong>Submit</strong></button>
+<script>
+ 
+let btn= document.getElementById("btn");
+btn.addEventListener("click",validateEmail)
+ 
+function validateEmail()
+{  
+    let email = document.getElementById("email").value;
+    let msg = document.getElementById("msg");
+    let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
+    
+if(email== "")
+{
+ 
+   msg.innerHTML= "Email cannot be empty! Please,fill the input field";
+   return false;
+}
+ 
+else if(!pattern.test(email))
+{
+   msg.innerHTML="Invalid format.Please, enter a valid email address!";
+   return false;
+ 
+}
+ 
+else{ 
+    msg.innerHTML= "valid email.";
+    return true;
+}
+}
+</script> 
+
+</body>
+</html>
+ 
