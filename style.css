@@ -1,0 +1,18 @@
+body{
+    font-family: Arial;
+    background-color: snow;
+    text-align: center;
+}
+ 
+.container{
+    background-color: white;
+    width: 300px;
+    margin: 100px;
+    padding: 20px;
+    border-radius: 5px;
+}
+ 
+input{
+    width: 150px;
+    padding: 5px;
+}
