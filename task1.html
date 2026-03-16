@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task1: Name validation</title>
+</head>
+<body>
+ 
+<label for="name">Name:</label> <br><br>
+<input type="text" id="name"> <br>
+<p id="msg" style="color:blue;"></p> <br>
+<input type="button" value="Submit" onclick="validateName()">
+ 
+<script>
+ 
+function validateName(){
+ 
+    let name = document.getElementById("name").value;
+    let msg = document.getElementById("msg");
+    let pattern = /^[A-Za-z][A-Za-z.\- ]*$/;
+ 
+  
+    if(name == ""){
+        msg.innerHTML = "Please, fill the name!";
+        return false;
+    } 
+    else if(!pattern.test(name)){
+        msg.innerHTML = "Name must start with a letter and contain only letters, dot(.) or dash(-)!";
+        return false;
+    } 
+    else{
+         msg.innerHTML = "Valid name..";
+    }
+ 
+    let words = name.split(" ");
+    if(words.length < 2){
+        msg.innerHTML = "Name should have at least two words!";
+        return false;
+    }
+}
+</script>
+</body>
+</html>
+ 

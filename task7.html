@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-7: Profile</title>
+</head>
+<body>
+    <form>
+         <fieldset style="width: 350px;">
+            <legend><strong>Profile Picture:</strong></legend>
+ 
+            <label><strong>User ID:</strong></label>
+            <input type="text" id="userid"><br><br>
+ 
+            <label><strong>Picture:</strong></label>
+            <input type="file" id="picture" accept=".jpg">
+ 
+            <p id="msg" style="color:blue;"></p>
+ 
+            <hr width="300" align="left">
+            <input type="button" value="Submit" onclick="validProfile()">
+        </fieldset>
+    </form>
+ 
+<script>
+function validProfile() {
+ 
+    let userid = document.getElementById("userid").value;
+    let picture = document.getElementById("picture").value;
+    let msg = document.getElementById("msg");
+ 
+   
+    if(userid === "") {
+        msg.innerHTML = "User ID cannot be empty!";
+        return;
+    }
+ 
+ 
+    if(userid <= 0) {
+        msg.innerHTML = "User ID must be a positive number!";
+        return;
+    }
+ 
+ 
+    if(picture === "") {
+        msg.innerHTML = "Picture cannot be empty!";
+        return;
+    } 
+    else{ 
+        msg.innerHTML = "Form submitted successfully!";
+    }
+ 
+    
+}
+</script>
+ 
+</body>
+</html>
+ 

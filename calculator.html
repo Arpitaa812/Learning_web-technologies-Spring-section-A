@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Safe Calculator</title>
+<style>
+#box{
+    width:220px;
+    margin:60px auto;
+    text-align:center;
+    border:2px solid black;
+    padding:12px;
+}
+ 
+#output{
+    width:190px;
+    height:35px;
+    margin-bottom:12px;
+    font-size:18px;
+    text-align:right;
+}
+ 
+button{
+    width:45px;
+    height:35px;
+    margin:4px;
+    font-size:16px;
+}
+</style>
+</head>
+<body>
+ 
+<div id="box">
+    <input type="text" id="output" readonly>
+    <div id="btnBox"></div>
+</div>
+ 
+<script>
+
+let resultBox = document.getElementById("output");
+let btnBox = document.getElementById("btnBox");
+ 
+
+let items = [
+    "7","8","9","/",
+    "4","5","6","*",
+    "1","2","3","-",
+    "C","0","=","+"
+];
+ 
+
+for(let i = 0; i < items.length; i++){
+    createButton(items[i]);
+}
+ 
+
+function createButton(value){
+    let btn = document.createElement("button");
+    btn.textContent = value;
+    btnBox.appendChild(btn);
+ 
+    btn.addEventListener("click", function(){
+        handleClick(value);
+    });
+}
+ 
+
+function handleClick(value){
+    if(value === "C"){
+        resultBox.value = "";
+    } else if(value === "="){
+        try{
+            resultBox.value = calculate(resultBox.value);
+        } catch(e){
+            resultBox.value = "Error";
+        }
+    } else {
+        resultBox.value += value;
+    }
+}
+ 
+function calculate(expr){
+    
+    if(/[^0-9+\-*/.]/.test(expr)) throw "Invalid input";
+ 
+    
+    let numbers = expr.split(/[\+\-\*\/]/).map(function(n){ return parseFloat(n); });
+    let operators = expr.replace(/[0-9.]/g, "").split("");
+ 
+    
+    let i = 0;
+    while(i < operators.length){
+        if(operators[i] === "*" || operators[i] === "/"){
+            let result;
+            if(operators[i] === "*") result = numbers[i] * numbers[i+1];
+            if(operators[i] === "/"){
+                if(numbers[i+1] === 0) throw "Division by zero";
+                result = numbers[i] / numbers[i+1];
+            }
+            numbers.splice(i, 2, result);
+            operators.splice(i, 1);
+        } else {
+            i++;
+        }
+    }
+ 
+    
+    let result = numbers[0];
+    for(let j = 0; j < operators.length; j++){
+        if(operators[j] === "+") result += numbers[j+1];
+        if(operators[j] === "-") result -= numbers[j+1];
+    }
+ 
+    return result;
+}
+</script>
+ 
+</body>
+</html>
+ 

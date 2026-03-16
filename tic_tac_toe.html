@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tic Tac Toe</title>
+ 
+<style>
+ 
+body{
+ text-align:center;
+ font-family:Arial;
+}
+ 
+#board{
+ width:300px;
+ margin:auto;
+ display:grid;
+ grid-template-columns:repeat(3,100px);
+}
+ 
+.cell{
+ width:100px;
+ height:100px;
+ border:2px solid black;
+ font-size:40px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ cursor:pointer;
+}
+ 
+</style>
+ 
+</head>
+
+<body>
+ 
+<h2>Tic Tac Toe</h2>
+ 
+
+<h3>X Score: <span id="scoreX">0</span> | O Score: <span id="scoreO">0</span></h3>
+ 
+<div id="board">
+ 
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+ 
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+ 
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+ 
+</div>
+ 
+<br>
+ 
+<button onclick="resetGame()">Reset Game</button>
+ 
+<script>
+ 
+let cells = document.getElementsByClassName("cell");
+let currentPlayer = "X";
+let gameActive = true;
+ 
+let scoreX = 0;
+let scoreO = 0;
+ 
+for(let i=0;i<cells.length;i++){
+ 
+ cells[i].addEventListener("click", function(){
+ 
+ if(this.innerHTML!="" || gameActive==false) return;
+ 
+ this.innerHTML = currentPlayer;
+ 
+ if(currentPlayer=="X")
+    this.style.backgroundColor = "lightblue";
+ else
+    this.style.backgroundColor = "pink";
+ 
+ checkWinner();
+ 
+ if(gameActive){
+ currentPlayer = currentPlayer=="X" ? "O" : "X";
+ }
+ 
+ });
+ 
+}
+ 
+function checkWinner(){
+ 
+ let win=[
+ [0,1,2],
+ [3,4,5],
+ [6,7,8],
+ [0,3,6],
+ [1,4,7],
+ [2,5,8],
+ [0,4,8],
+ [2,4,6]
+ ];
+ 
+ for(let i=0;i<win.length;i++){
+ 
+ let a=win[i][0];
+ let b=win[i][1];
+ let c=win[i][2];
+ 
+ if(cells[a].innerHTML!="" &&
+ cells[a].innerHTML==cells[b].innerHTML &&
+ cells[a].innerHTML==cells[c].innerHTML){
+ 
+ cells[a].style.backgroundColor = "lightgreen";
+ cells[b].style.backgroundColor = "lightgreen";
+ cells[c].style.backgroundColor = "lightgreen";
+ 
+ if(cells[a].innerHTML=="X"){
+    scoreX++;
+    document.getElementById("scoreX").innerHTML = scoreX;
+ } else {
+    scoreO++;
+    document.getElementById("scoreO").innerHTML = scoreO;
+ }
+ 
+ alert("Player "+cells[a].innerHTML+" Wins!");
+ gameActive=false;
+ return;
+ }
+ 
+ }
+ 
+ let draw=true;
+ for(let i=0;i<cells.length;i++){
+ if(cells[i].innerHTML=="") draw=false;
+ }
+ 
+ if(draw){
+ alert("It's a Draw!");
+ gameActive=false;
+ }
+ 
+}
+ 
+function resetGame(){
+ 
+ for(let i=0;i<cells.length;i++){
+ cells[i].innerHTML="";
+ cells[i].style.backgroundColor="";
+ }
+ 
+ currentPlayer="X";
+ gameActive=true;
+ 
+}
+ 
+</script>
+ 
+</body>
+</html>
